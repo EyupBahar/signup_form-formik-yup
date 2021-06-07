@@ -1,7 +1,8 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { TextField } from "./TextField";
 
-const Signup = () => {
+export const Signup = () => {
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -12,16 +13,15 @@ const Signup = () => {
   };
   return (
     <Formik initialValues={initialValues}>
-      {(formik) => {
+      {(formik) => (
         <div>
           <h1 className="my-4 font-wight-bold-display-4">Sign Up</h1>
           <Form>
             <TextField label="First Name" name="firstName" type="text" />
+            <TextField label="First Name" name="firstName" type="text" />
           </Form>
-        </div>;
-      }}
+        </div>
+      )}
     </Formik>
   );
 };
-
-export default Signup;
