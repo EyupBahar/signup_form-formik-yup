@@ -11,8 +11,44 @@ export const Signup = () => {
     confirmPassword: "",
     aggreeToTerms: false,
   };
+
+  const validate = Yup.object({
+    firstName: Yup.string()
+      .min(2, "Too short")
+      .max(15, "Must be 15 char or less")
+      .required("Required"),
+    lastName: Yup.string()
+      .min(2, "Too short")
+      .max(25, "Must be 25 char or less")
+      .required("Required"),
+    email: Yup.string().email("Email is invalid").required("Required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 char or more")
+      .matches(/\d+/, "Password must have a number")
+      .matches(/[a-z]+/, "Password must have a lowercase")
+      .matches(/[A-Z]+/, "Password must have a uppercase")
+      .matches(/[!?.@#$%^&*()-+]+/, "Password must have a special char")
+      .test("password", "Password is an invalid", (value) => !/\s+/.test(value))
+      .required("Required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Password must match")
+      .required("Confirming password is required"),
+    aggreeToTerms: Yup.boolean()
+      .label("Terms")
+      .test(
+        "aggreeToTerms",
+        "Must agree to terms to continue",
+        (value) => value === true
+      ),
+  });
   return (
-    <Formik initialValues={initialValues}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validate}
+      onSubmit={(values) => {
+        alert(JSON.stringify(values, null, 2));
+      }}
+    >
       {(formik) => (
         <div>
           <h1 className="my-4 font-wight-bold-display-4">Sign Up</h1>
