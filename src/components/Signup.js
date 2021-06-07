@@ -6,8 +6,8 @@ export const Signup = () => {
   const initialValues = {
     firstName: "",
     lastName: "",
-    password: "",
     email: "",
+    password: "",
     confirmPassword: "",
     aggreeToTerms: false,
   };
@@ -41,34 +41,46 @@ export const Signup = () => {
         (value) => value === true
       ),
   });
+
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validate}
-      onSubmit={(values) => {
+      //  onSubmit = { values => {
+      //    alert(JSON.stringify(values, null,2))
+      //   }}
+      onSubmit={async (values) => {
+        await sleep(2500);
         alert(JSON.stringify(values, null, 2));
       }}
     >
       {(formik) => (
         <div>
-          <h1 className="my-4 font-wight-bold-display-4">Sign Up</h1>
+          <h1 className="my-4 font-weight-bold-display-4">Sign Up</h1>
+          {/* {console.log(formik)} */}
           <Form>
             <TextField label="First Name" name="firstName" type="text" />
-            <TextField label="Last Name" name="LastName" type="text" />
-            <TextField label="Email" name="Email" type="email" />
-            <TextField label="Password" name="Password" type="password" />
+            <TextField label="Last Name" name="lastName" type="text" />
+            <TextField label="Email" name="email" type="email" />
+            <TextField label="Password" name="password" type="password" />
             <TextField
               label="Confirm Password"
-              name="ConfirmPassword"
+              name="confirmPassword"
               type="password"
             />
             <TextField
               label="I accept terms & conditions"
               name="aggreeToTerms"
-              type="ckeckbox"
+              type="checkbox"
             />
-            <button className="btn btn-dark mt-3">Register</button>
-            <button className="btn btn-danger mt-3 ml-3">Reset</button>
+            <button className="btn btn-dark mt-3" type="submit">
+              Register
+            </button>
+            <button className="btn btn-danger mt-3 ml-3" type="reset">
+              Reset
+            </button>
           </Form>
         </div>
       )}
