@@ -48,9 +48,6 @@ export const Signup = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validate}
-      //  onSubmit = { values => {
-      //    alert(JSON.stringify(values, null,2))
-      //   }}
       onSubmit={async (values) => {
         await sleep(2500);
         alert(JSON.stringify(values, null, 2));
@@ -59,7 +56,6 @@ export const Signup = () => {
       {(formik) => (
         <div>
           <h1 className="my-4 font-weight-bold-display-4">Sign Up</h1>
-          {/* {console.log(formik)} */}
           <Form>
             <TextField label="First Name" name="firstName" type="text" />
             <TextField label="Last Name" name="lastName" type="text" />
